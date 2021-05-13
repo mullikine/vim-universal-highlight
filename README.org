@@ -1,6 +1,13 @@
 * Universal syntax highlighting for the terminal
 
-./nvc sudoku
-./nvc emacs -nw -Q
+[[./screenshot.png]]
 
+** Example invocation:
+
+#+BEGIN_SRC bash -n :i bash :async :results verbatim code
+  ./nvc sudoku
+  ./nvc emacs -nw -Q
+#+END_SRC
+
+** Demo
 https://asciinema.org/a/YAGc5CNNolt6dJ6WmypQM2lVb
