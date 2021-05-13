@@ -1,0 +1,16 @@
+#!/bin/bash
+export TTY
+
+cmd() {
+    for var in "$@"
+    do
+        printf "'%s' " "$(printf %s "$var" | sed "s/'/'\\\\''/g")";
+    done | sed 's/ $//'
+}
+is_tty() { [ -t 1 ]; }
+
+CMD="$(cmd "$@")"
+
+export INSIDE_NEOVIM=y
+precmd="TERM=vt100 "
+nvim -u nvimrc -c "call TermAndQuit(\"eval $(cmd "$precmd $CMD")\")" -c "call GeneralSyntax()" -c "call NumberSyntax()" -c "normal! i"

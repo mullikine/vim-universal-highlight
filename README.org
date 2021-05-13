@@ -1,0 +1,6 @@
+* Universal syntax highlighting for the terminal
+
+./nvc sudoku
+./nvc emacs -nw -Q
+
+https://asciinema.org/a/YAGc5CNNolt6dJ6WmypQM2lVb
