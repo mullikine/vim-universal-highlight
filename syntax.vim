@@ -1,12 +1,63 @@
-hi Normal       ctermfg=60
+" To find the colour of something, use 'hi Special'.
 
+" List all the things
+"%!sed -n 's/.*syntax match \([a-z]\+\).*/\1/p'|uniqnosort.sh
+
+"[!+-=] " INCORRECT!! This creates number ranges
+"[!+=-] " CORRECT!
+
+" starting
+" \(\(^\|│\)\s*\)\@<=
+" finishing
+" \(  \|$\|│\)\@=
+
+" This is better than \> for path names because it allows to be
+" followed by things like ;
+"\([ "';]\|$\)\)\@=
+ 
+" 1 Can't use unicode in python without declaring charset.
+" i can do this though
+" syntax match unicode "[^\d0-\d127]"
+
+" start of line
+"\(^\|│\||\)"
+
+" wherever one of these \> is used a : should be used as well (so that
+" tmux window search is highlighted properly
+" \(\>\|:\)
+"
+" doing this induced serious lag
+"%s/\\</\\(\\<\\|:\\)/gc
+
+" don't split this into multiple functions because of precedence
+" abort means the function will quit when an error is detected
+"fun! GeneralSyntax() abort
+"can't
+
+"hi morediscrete cterm=NONE ctermbg=233 ctermfg=236
 hi morediscrete cterm=NONE ctermfg=236 ctermbg=NONE
 
+" The roman numerals were creating lag. Verified.
+" Remember I also need to change this in inkpot.vim
 fun! NumberSyntax()
     " real low priority
     "syntax match tests '[a-z]\+\([fb]g\)\@='
     "syntax match tests '\([fb]g\)\@<=[a-z]\+'
 
+    " underscore
+    "syntax match morediscrete "[a-z]\@<=_[a-z]\@="
+    "syntax match morediscrete "[A-Z]\@<=_[A-Z]\@="
+    "syntax match morediscrete "\c[0-9a-z ]\@<=_\+[0-9a-z]\@="
+
+    " this wasnt really helpful, plus looked kinda bad sometimes
+    " By default it should be discrete
+    "syntax match morediscrete "_"
+
+    " keep numbers after letters (for units [data and measurements] and
+    " ordinal numbers)
+    " keep letters before numbers (it's also extremely useful for, for
+    " example dates like this 20160818054330UTC. better on than off for
+    " sure)
     hi one cterm=NONE ctermfg=033 ctermbg=236
     "syntax match one "\s\?\(\a\d*\)\@<!\(\d*1\)\d\@!\a*\s\?"
     syntax match one "\c[a-f]*\(\d*1\)\d\@!\a*"
@@ -240,6 +291,13 @@ fun! GeneralSyntax()
     hi neosession cterm=NONE ctermfg=069 ctermbg=225
     syntax match neosession "\(^\|│\||\)NV \^\?[A-Za-z0-9-]\+\>"
 
+    " Can't use these because they do not interact well with
+    " columnated glossaries.
+    "" Any lines with one of the following characters will be highlighted:
+    "" Use BufWinEnter for maximum priority
+    "" BufWinEnter gives priority to vimhelp and code
+    "" BufEnter gives priority to mail
+    "" VimEnter fixes difftool.sh HEAD\^:
     "hi myhighlightSplus cterm=NONE ctermfg=116 ctermbg=4
     "syntax match myhighlightSplus ".*ס.*" " ס S+
 
@@ -261,7 +319,7 @@ fun! GeneralSyntax()
 
     " email -- this should come early so can be overriddn
     hi login cterm=NONE ctermfg=036 ctermbg=023
-    syntax match login "\a\+@[a-z.-]\+" " hiltest@hil-node1
+    syntax match login "\a\+@[a-z.-]\+" " hiltest@hil-node1 crown@nitrogen
     syntax match login "\(\a\+\)\@<=@[a-z.-]\+"
 
     " let diffadd take care of pluses
@@ -409,40 +467,50 @@ fun! GeneralSyntax()
     hi testcasebold cterm=NONE ctermfg=239 ctermbg=213
     syntax match testcasebold '\cfuncname: \<test_\(\d\+\)\w\+\(\.\w\w\>\)\@!\(\.\w\w\w\+\)\?\>'
 
+    hi crown cterm=NONE ctermfg=202 ctermbg=240
+    """ syntax match crown '\(imm\|IMM\)'
+    """ syntax match crown '\c\<NBO\(\>\|:\)'
+    """ syntax match crown '\c\<RTC\(\>\|:\)'
+    """ syntax match crown '\c\<RTMs\?\>'
+    """ syntax match crown 'E\(BL\|bl\)'
+
+    """ syntax match crown '\c\<ESR\>'
+
     " Visor replacement
     hi visorReplacement cterm=NONE ctermfg=009 ctermbg=018
     syntax match visorReplacement 'Α.\{-\}Ω' " capital alpha and capital omega
 
     " My Tools
-    hi cnShane cterm=NONE ctermfg=047 ctermbg=092
-    syntax match cnShane '\([^ ]\@<!;\)\@<=[a-z]*;\@='
-    syntax match cnShane '\c\<qxm\>'
-    syntax match cnShane '\c\<ixm\>'
-    syntax match cnShane '\c\<cxd\>'
-    syntax match cnShane '\c\<Query XML\>'
-    syntax match cnShane '\c\<Information XML\>'
-    syntax match cnShane '\<log2ixm\>'
-    syntax match cnShane '\<ixm2cxd\>'
-    syntax match cnShane '\c\<tmux visualiser\>'
-    syntax match cnShane '\ccroogle\(\>\|:\)'
-    syntax match cnShane '\(^\|│\||\) *\~:'
+    hi crownShane cterm=NONE ctermfg=047 ctermbg=092
+    syntax match crownShane '\([^ ]\@<!;\)\@<=[a-z]*;\@='
+    syntax match crownShane '\c\<qxm\>'
+    syntax match crownShane '\c\<ixm\>'
+    syntax match crownShane '\c\<cxd\>'
+    syntax match crownShane '\c\<Query XML\>'
+    syntax match crownShane '\c\<Information XML\>'
+    syntax match crownShane '\c\<Crown XML Database\>'
+    syntax match crownShane '\<log2ixm\>'
+    syntax match crownShane '\<ixm2cxd\>'
+    syntax match crownShane '\c\<tmux visualiser\>'
+    syntax match crownShane '\ccroogle\(\>\|:\)'
+    syntax match crownShane '\(^\|│\||\) *\~:'
 
     " allow elastic for emails
-    syntax match cnShane '\c\<elastic\(.\?search\)\?\>'
-    syntax match cnShane '\c\<es\>'
-    syntax match cnShane '\c\<logstash\>'
-    syntax match cnShane '\c\<arangodb\>'
-    syntax match cnShane '\c\<prelert\>'
-    syntax match cnShane '\<LS\>'
-    syntax match cnShane '\<ELK\>'
-    "syntax match cnShane '\c\<ls\>'
-    syntax match cnShane '\c\<kibana\>'
-    "syntax match cnShane '\c\<kb\>'
+    syntax match crownShane '\c\<elastic\(.\?search\)\?\>'
+    syntax match crownShane '\c\<es\>'
+    syntax match crownShane '\c\<logstash\>'
+    syntax match crownShane '\c\<arangodb\>'
+    syntax match crownShane '\c\<prelert\>'
+    syntax match crownShane '\<LS\>'
+    syntax match crownShane '\<ELK\>'
+    "syntax match crownShane '\c\<ls\>'
+    syntax match crownShane '\c\<kibana\>'
+    "syntax match crownShane '\c\<kb\>'
 
     " Vision
-    hi cnVision cterm=NONE ctermfg=212 ctermbg=240
-    syntax match cnVision '\c\<Vision\>'
-    syntax match cnVision '\<OpenCV\>'
+    hi crownVision cterm=NONE ctermfg=212 ctermbg=240
+    syntax match crownVision '\c\<Vision\>'
+    syntax match crownVision '\<OpenCV\>'
 
     " xpath/html/xhtml
     hi xpath cterm=NONE ctermfg=061 ctermbg=235
@@ -454,6 +522,9 @@ fun! GeneralSyntax()
     hi xpath3 cterm=NONE ctermfg=138 ctermbg=235
     syntax match xpath3 '\(\'\w\+\'\|"\w\+"\), \?By.\(ID\|XPATH\)'
 
+    " Important hardware
+    " Must come before packages (so hil-test-common doesn't get
+    " highlighted HIL)
     hi importantHardware cterm=NONE ctermfg=162 ctermbg=054
     "syntax match importantHardware '\c\(\<\|[^_]\@<!\)hil\([_:-]nodes\?\)\?\(\>\|[^_0-9]\@!\)' " no getting around using the underscores without setting iskeyword
     "syntax match importantHardware '\c\(\<\|[^_]\@<!\)rtm\(\>\|[^_0-9]\@!\)' " no getting around using the underscores without setting iskeyword
@@ -465,17 +536,180 @@ fun! GeneralSyntax()
     syntax match builddep '\c\<builddep\>'
 
     " Messaging
-    hi cnMessaging cterm=NONE ctermfg=136 ctermbg=240
-    syntax match cnMessaging '\c\<Messaging\>'
+    hi crownMessaging cterm=NONE ctermfg=136 ctermbg=240
+    syntax match crownMessaging '\c\<Messaging\>'
 
     " VehicleCalibration
-    "hi cnVehicleCalibration cterm=NONE ctermfg=156 ctermbg=240
-    hi cnVehicleCalibration cterm=NONE ctermfg=158 ctermbg=240
-    syntax match cnVehicleCalibration '\c\<Vehicle \?Calibration\>'
+    "hi crownVehicleCalibration cterm=NONE ctermfg=156 ctermbg=240
+    hi crownVehicleCalibration cterm=NONE ctermfg=158 ctermbg=240
+    syntax match crownVehicleCalibration '\c\<Vehicle \?Calibration\>'
+
+    " These don't really need regex
+    "" Busybox lsof Threads
+    "hi crownThread cterm=NONE ctermfg=206 ctermbg=240
+    "syntax match crownThread '\<OdometryC\>'
+    "syntax match crownThread '\<Hdf5Appen\>'
+    "syntax match crownThread '\<CanReader\>'
+    "syntax match crownThread '\<CanWriter\>'
+    "syntax match crownThread '\<Calibrati\>'
+    "syntax match crownThread '\<ImuCalibr\>'
+    "VehicleIn
+    "CanInterf
+
+    """ " VehicleInterface
+    """ hi crownVehicleInterface cterm=NONE ctermfg=146 ctermbg=240
+    """ syntax match crownVehicleInterface '\c\<Vehicle[ -]\?Interface\>'
+    """ syntax match crownVehicleInterface '\c\<VLINTERFACE\>'
+
+    """ " CameraInterface
+    """ hi crownCameraInterface cterm=NONE ctermfg=214 ctermbg=240
+    """ syntax match crownCameraInterface '\c\<Camera[ -]\?Interface\>'
+    """ syntax match crownCameraInterface '\c\<CAMERAINT\>'
+
+    """ " CanInterface
+    """ hi crownCanInterface cterm=NONE ctermfg=122 ctermbg=240
+    """ syntax match crownCanInterface '\c\<Can[ -]\?Interface\>'
+    """ syntax match crownCanInterface '\c\<CANINT\>'
+
+    """ " IntegrationTests
+    """ hi crownIntegrationTests cterm=NONE ctermfg=037 ctermbg=240
+    """ syntax match crownIntegrationTests '\c\<Integration \?Tests\>'
+
+    """ " dualModeControl
+    """ hi dualModeControl cterm=NONE ctermfg=207 ctermbg=240
+    """ syntax match dualModeControl '\c\<dual \?Mode \?Control\>'
+
+    """ " utils
+    """ hi utils cterm=NONE ctermfg=035 ctermbg=240
+    """ syntax match utils '\c\<utils\>'
+
+    """ " Configuration
+    """ hi crownConfiguration cterm=NONE ctermfg=183 ctermbg=240
+    """ syntax match crownConfiguration '\c\<Configuration\>'
+
+    """ " Core
+    """ hi crownCore cterm=NONE ctermfg=165 ctermbg=240
+    """ syntax match crownCore '\c\<Core\>'
+
+    """ " Logging
+    """ hi crownLogging cterm=NONE ctermfg=190 ctermbg=240
+    """ syntax match crownLogging '\c\<Logging\>'
+
+    """ " Imu
+    """ hi crownImu cterm=NONE ctermfg=197 ctermbg=240
+    """ syntax match crownImu '\c\<Imu\>'
+
+    """ " GeoReporting
+    """ hi crownGeoReporting cterm=NONE ctermfg=039 ctermbg=240
+    """ syntax match crownGeoReporting '\c\<Geo[ -]\?Reporting\>'
+
+    """ " HilTestCommon
+    """ hi crownHilTestCommon cterm=NONE ctermfg=228 ctermbg=240
+    """ syntax match crownHilTestCommon '\c\<Hil-\?Test-\?Common\>'
+
+    """ " scripts
+    """ hi crownScripts cterm=NONE ctermfg=167 ctermbg=240
+    """ syntax match crownScripts '\c\<scripts\>'
+    """ syntax match crownScripts '\c\<integration\>'
+
+    """ " Localisation
+    """ hi crownLocalisation cterm=NONE ctermfg=047 ctermbg=240
+    """ syntax match crownLocalisation '\c\<\(Environment Based \)\?locali[sz]ation\>'
+    """ syntax match crownLocalisation '\c\<Very Narrow Isles\>' " VNA
+    """ syntax match crownLocalisation '\c\<VNA\>' " VNA
+    """ syntax match crownLocalisation '\<[Oo]dometry\>'
+    """ syntax match crownLocalisation '\<[Cc]lothoid\>'
+    """ syntax match crownLocalisation '\c\<EBL\>'
+    """ syntax match crownLocalisation '\c\<Env\(ironmental\)\? \?Localisation\>'
+    """ syntax match crownLocalisation '\c\<DMTR\>'
+    """ syntax match crownLocalisation '\<GA\>'
+    """ syntax match crownLocalisation '\c\<dual\([ -]\?\(mode\)\)\>'
+    """ syntax match crownLocalisation '\(\<[A-Z5_]\+\)\@<=_MODE\>'
+    """ syntax match crownLocalisation '\<[A-Z5_]\+\(_MODE\>\)\@='
+    """ syntax match crownLocalisation '\<MODE_[A-Z5_]\+\>'
+    """ syntax match crownLocalisation '\c\<LOCENVLOC\>'
+    """ syntax match crownLocalisation '\c\<CAMC\>'
+
+    """ " Jira
+    """ hi crownIssue cterm=NONE ctermfg=163 ctermbg=055
+    """ syntax match crownIssue '\(ISS\|SM\|GA\|EBL\|IMM\|IMMDU\)-\d\{3,}'
+    """ syntax match crownIssue "[^ /]* \?\(ISS\|SM\|GA\|EBL\|IMM\)-\(\d\|?\)\{2,}$"
+
+    """ hi crownIssueDMTR cterm=NONE ctermfg=093 ctermbg=055
+    """ syntax match crownIssueDMTR '\(DMTR\)-\d\{3,}'
+    """ syntax match crownIssueDMTR "[^ /]* \?\(DMTR\)-\(\d\|?\)\{2,}$"
+
+    """ hi crownIssueTOF cterm=NONE ctermfg=063 ctermbg=055
+    """ syntax match crownIssueTOF '\(TOF\)-\d\{1,}'
+    """ syntax match crownIssueTOF "[^ /]* \?\(TOF\)-\(\d\|?\)\{1,}$"
+
+    """ syntax match crownIssueTOF "\c\<[a-z]\+ perception\>"
+
+    """ hi crownIssueRDSP cterm=NONE ctermfg=197 ctermbg=055
+    """ syntax match crownIssueRDSP '\(RDSP\)-\d\{3,}'
+    """ syntax match crownIssueRDSP "[^ /]* \?\(RDSP\)-\(\d\|?\)\{2,}$"
+
+    """ " Crown Terms
+    """ syntax match crown '\c\<OD\>'
+    """ syntax match crown '\c\<Obstacle Detection\>'
+    """ syntax match crown '\c\<HFL\>'
+    """ syntax match crown '\c\<VDL\>'
+    """ syntax match crown '\c\<WMS\>'
+    """ syntax match crown '\c\<Warehouse Management System\>'
+    """ syntax match crown '\c\<opkg\>'
 
     hi importantFile cterm=NONE ctermfg=162 ctermbg=NONE
     syntax match importantFile '\c\<syslog\>'
     syntax match importantFile '\c\<auth.log\>'
+
+    """ " Hardware
+    """ syntax match crown '\c\<[VSTOHA]CM\>'
+    """ syntax match crown '\c\<DSP[12]\?\>'
+    """ syntax match crown '\c\<IHM\>'
+    """ syntax match crown '\c\<UIM\>'
+    """ syntax match crown '\c\<KYS\>'
+    """ syntax match crown '\c\<DM\>'
+    """ syntax match crown '\c\<ATOM\>'
+    """ syntax match crown '\c\<\w\+\> \<\(Hardware\|Control\|Interface\) Module\>'
+    """ syntax match crown '\c\<Display Module\>'
+    """ syntax match crown '\c\<infolink\>\( box\)\?'
+    """ syntax match crown '\c\<Munich\>'
+    """ syntax match crown '\<eblApp\>'
+    """ syntax match crown '\c[Cc]rown\(lift\)\?\>'
+    """ syntax match crown '\c\<Crown Equipment\>\( Limited\| Ltd\| Corp\(oration\)\?\)\?\>'
+    """ syntax match crown '\cCompanion \?Cube'
+    """ syntax match crown '\cPreserve \?Logs\?'
+    """ syntax match crown '\<site-builder\>'
+    """ syntax match crown '\c\<infosphere\>'
+    """ syntax match crown '\c\<service[ -]mode\>'
+    """ syntax match crown '\c\<rtc\>'
+    """ syntax match crown '\c\<LogPutter\>'
+    """ syntax match crown '\c\<crowncontroller\>'
+    """ syntax match crown '\c\<Fused[ \-]\?Odom\(etry\)\?\>'
+    """ syntax match crown '\c\<\(Hil \?\)\?Log \?Player\>'
+    """ syntax match crown '\<[Nn]ative\>'
+    """ syntax match crown '\<[Tt]imesys\>'
+    """ syntax match crown '\<[Ii]ntrinsics\>'
+    """ syntax match crown '\c\<fake \?\(Truck\|Imu\)\(Dsp\)\?\>'
+    """ syntax match crown '\c\(DISPLAY\|FAKE\)[ _]\?CAM\(ERA\)\?\>'
+
+    """ " VIPs
+    """ hi vip cterm=NONE ctermfg=222 ctermbg=130
+    """ syntax match vip "\c\<Lew\>\([\- .]Manci\)\?[\a]\@!"
+    """ syntax match vip "\c\<Mike\>\([\- .]Gallagher\)\?[\a]\@!"
+    """ syntax match vip "\c\<Tim\>\([\- .]Quellhorst\|[\- ]Wellman\)\?\([\a]\|[\- ]F\(anselow\)\?\)\@!"
+    """ syntax match vip '\c\<\(Phil\|TQ\|TW\|VP\|LM\|MG\|timq\|timw\)\>'
+
+    """ " Tim Fanselow
+    """ hi timf cterm=NONE ctermfg=091 ctermbg=177
+    """ syntax match timf "\c\<Tim\>[\- .]F\(anselow\)\?[\a]\@!"
+    """ syntax match timf "\ctfanselo"
+
+    """ " RTC Staff
+    hi kashyap cterm=NONE ctermfg=041 ctermbg=022 " also used for other things
+    """ syntax match kashyap "\c\<chandrasekar\>"
+    """ syntax match kashyap "\c\<Kashyap\>\([\- .]Chandrasekar\)\?[\a]\@!" " Kashyap Chandrasekar
+    """ syntax match kashyap "\ckchandra"
 
     "hi me cterm=NONE ctermfg=076 ctermbg=017
     "hi me cterm=NONE ctermfg=155 ctermbg=236
@@ -486,15 +720,176 @@ fun! GeneralSyntax()
     "hi me cterm=NONE ctermfg=124 ctermbg=111
     hi me cterm=NONE ctermfg=204 ctermbg=027
     syntax match me "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
+    syntax match me "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
+    syntax match me "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
     syntax match me "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
+    syntax match me "\c\<Kiana\>\([\- .]Adams\)\?[\a]\@!" " Kiana Adams
     syntax match me "\csmulliga"
     syntax match me "\c\<JOB\>"
     syntax match me "\clibertyprime"
 
+    syntax match crown "\calphapapa"
+
     hi mebot cterm=NONE ctermfg=027 ctermbg=204
     syntax match mebot "\clibertyprimebot"
 
+    """ " unknown crown developers/people
+    """ syntax match crown '\c\<Alex Kozlov\>'
+    """ syntax match crown '\<tchen\>'
+    """ syntax match crown '\<akozlov\>'
+    """ syntax match crown '\c\<Jamie Bell\>'
+    """ syntax match crown '\<jbell\>'
+
+    """ " Generic Mark
+    """ syntax match crown '\c\<Mark\(B[\a]\@!\|Bell\|W[\a]\@!\|Walbran\)\@!\>'
+
+    """ hi markbell cterm=NONE ctermfg=111 ctermbg=025
+    """ syntax match markbell "\c\<Mark\>\([\- .]B\(ell\)\?\)[\a]\@!" " Mark Bell
+    """ syntax match markbell "\cmbell"
+    """ syntax match markbell "\c\<CFE\>"
+    """ syntax match markbell "\c\<Camera \?Feature \?Extraction\>"
+
+    """ hi markwalbran cterm=NONE ctermfg=045 ctermbg=024
+    """ syntax match markwalbran "\c\<Mark\>\([\- .]W\(albran\)\?\)[\a]\@!" " Mark Walbran
+    """ syntax match markwalbran "\cmwalbran"
+
+    """ " Generic David
+    """ syntax match crown '\c\<David\(B[\a]\@!\|Moore\|W[\a]\@!\|Robinson\)\@!'
+    """ syntax match crown '\c\<Robinson\>'
+
+    """ hi davidmoore cterm=NONE ctermfg=245 ctermbg=220
+    """ syntax match davidmoore "\c\<David\>\([\- .]M\(oore\)\?\)[\a]\@!" " David Moore
+    """ syntax match davidmoore "\cdmoore"
+
+    """ hi davidrobinson cterm=NONE ctermfg=057 ctermbg=141
+    """ syntax match davidrobinson "\c\<David\>\([\- .]R\(obinson\)\?\)[\a]\@!" " David Robinson
+    """ syntax match davidrobinson "\cdrobinso"
+
+    """ " Ryan's Feature Reducing
+
+    """ "hi carl cterm=NONE ctermfg=015 ctermbg=197 " too similar to yolanda
+    """ "hi carl cterm=NONE ctermfg=009 ctermbg=053 " yolanda's old colur
+    """ hi carl cterm=NONE ctermfg=196 ctermbg=053 " yolanda's old colur
+    """ syntax match carl "\c\<Carl\>\([\- .]Morgan\)\?[\a]\@!" " Carl Morgan
+    """ syntax match carl "\cc\?morgan"
+
+    """ hi sam cterm=NONE ctermfg=050 ctermbg=067
+    """ syntax match sam "\c\<Sam\>\([\- .]McArdle\)\?[\a]\@!" " Sam McArdle
+    """ syntax match sam "\cgazebo"
+    """ syntax match sam "\csmcardle"
+    """ syntax match sam "\cpylon"
+
+    """ hi jacob cterm=NONE ctermfg=050 ctermbg=036
+    """ syntax match jacob "\c\<Jacob\>\([\- .]Thomson\)\?[\a]\@!" " Jacob Thomson
+    """ syntax match jacob "\cjthomson"
+    """ "syntax match sam "\csmcardle"
+
+    """ hi amitphilip cterm=NONE ctermfg=077 ctermbg=240
+    """ syntax match amitphilip "\c\<philip\>"
+    """ syntax match amitphilip "\c\<Amit\?\>\([\- .]Philip\)\?[\a]\@!" " Amit Philip
+    """ syntax match amitphilip "\caphilip"
+    """ syntax match amitphilip '\c\<SLAM\>'
+
+    """ hi benji cterm=NONE ctermfg=226 ctermbg=237
+    """ syntax match benji "\c\<Ben\(ji\)\?\>\([\- .]Morelli\)\?[\a]\@!" " Benji
+    """ syntax match benji "\cbmorelli"
+
+    """ " hi wsember cterm=NONE ctermfg=226 ctermbg=237
+    """ syntax match crown "\c\<Will\(iam\)\?\>\([\- .]Sember\)\?[\a]\@!" " William Sember
+    """ syntax match crown "\cwsember"
+    """ 
+    """ " hi sdai cterm=NONE ctermfg=226 ctermbg=237
+    """ syntax match crown "\c\<Shirlgey\>\([\- .]Dai\)\?[\a]\@!" " Shirley Dai
+    """ syntax match crown "\csdai"
+    """ 
+    """ " hi bmccroskey cterm=NONE ctermfg=226 ctermbg=237
+    """ syntax match crown "\c\<Bill\>\([\- .]McCroskey\)\?[\a]\@!" " Bill McCroskey
+    """ syntax match crown "\cbmccroskey"
+
+    """ hi eleanordafonseca cterm=NONE ctermfg=142 ctermbg=237
+    """ syntax match eleanordafonseca "\c\<Eleanor\>\([\- .]Da Fonseca\)\?[\a]\@!" " Eleanor Da Fonseca
+    """ syntax match eleanordafonseca "\c\<E Da Fonseca\>[\a]\@!" " Eleanor Da Fonseca
+    """ syntax match eleanordafonseca "\cedafonse"
+
+    hi hannah cterm=NONE ctermfg=142 ctermbg=237
+    syntax match hannah "\c\<Hannah\>\( Clark[\- .]Younger\)\?[\a]\@!"
+
+    """ hi zacharymoller cterm=NONE ctermfg=142 ctermbg=130
+    """ syntax match zacharymoller "\c\<Zach\(ary\)\?\>\( Moller\)\?[\a]\@!" " Zachary Moller
+    """ syntax match zacharymoller "\czmoller"
+    """ 
+    """ hi josualogito cterm=NONE ctermfg=154 ctermbg=22
+    """ syntax match josualogito "\c\<\(Josua\|Josh\)\>\( Logito\)\?[\a]\@!" " Josua Logito
+    """ syntax match josualogito "\cjlogito"
+
+    """ hi vadimfuchs cterm=NONE ctermfg=063 ctermbg=237
+    """ syntax match vadimfuchs "\c\<Vadim\>\([\- .]Fuchs\)\?[\a]\@!" " Vadim Fuchs
+    """ syntax match vadimfuchs "\cvfuchs"
+
+    """ hi bendeeming cterm=NONE ctermfg=041 ctermbg=237
+    """ syntax match bendeeming "\c\<Benjamin\?\>\([\- .]Deeming\)\?[\a]\@!" " Ben Deeming
+    """ syntax match bendeeming "\c\<Ben Deeming[\a]\@!"
+    """ syntax match bendeeming "\cbdeeming"
+
     hi toby cterm=NONE ctermfg=255 ctermbg=059
+    """ syntax match toby "\c\<Collett\>"
+    """ syntax match toby "\c\<Toby\>\([\- .]Collett\)\?[\a]\@!" " Toby Collett
+    """ "syntax match toby "\c\<Toby\>"
+    """ syntax match toby "\ctcollett"
+
+    """ hi will cterm=NONE ctermfg=185 ctermbg=027
+    """ syntax match will "\c\<Sember\>"
+    """ syntax match will "\c\<William\>\([\- .]Sember\)\?[\a]\@!" " William Sember
+    """ syntax match will "\cwsember"
+
+    """ hi jenkins cterm=NONE ctermfg=255 ctermbg=059
+    """ syntax match jenkins "\c\<jenkins\>"
+    """ syntax match jenkins "\c\<hiltest\>"
+
+    """ "hi andrewpaxie cterm=NONE ctermfg=117 ctermbg=019
+    """ hi andrewpaxie cterm=NONE ctermfg=117 ctermbg=063
+    """ "hi andrewpaxie cterm=NONE ctermfg=117 ctermbg=062
+    """ syntax match andrewpaxie "\c\<Andrew\>\([\- .]Paxie\)\?[\a]\@!" " Andrew Paxie
+    """ syntax match andrewpaxie "\capaxie"
+
+    """ " Generic Chris
+    """ syntax match crown '\c\<Chris\(B[\a]\@!\|Beaumont\|L[\a]\@!\|Lamb\)\@!\>'
+
+    """ hi cbeaumont cterm=NONE ctermfg=255 ctermbg=056
+    """ syntax match cbeaumont "\c\<Chris\>\([\- .]B\(eaumont\)\?\)[\a]\@!\>" " Chris Beaumont
+    """ syntax match cbeaumont "\ccbeaumon"
+
+    """ hi clam cterm=NONE ctermfg=255 ctermbg=126
+    """ syntax match clam "\c\<lamb\>"
+    """ syntax match clam "\c\<Chris\(topher\)\?\>\([\- .]L\(amb\)\?\)[\a]\@!\>" " Chris Lamb
+    """ syntax match clam "\cclamb"
+
+    """ "hi clam cterm=NONE ctermfg=255 ctermbg=126
+    """ "syntax match clam "\c\<Chris L[\a]\@!" " Chris Lamb
+    """ "
+    """ "hi cbeaumont cterm=NONE ctermfg=255 ctermbg=056
+    """ "syntax match cbeaumont "\c\<Chris B[\a]\@!" " Chris Beaumont
+
+    """ hi jacquie cterm=NONE ctermfg=079 ctermbg=238
+    """ syntax match jacquie "\c\<lewis\>"
+    """ syntax match jacquie "\c\<Jacqueline\>\([\- .]Lewis\)\?[\a]\@!" " Jacqueline Lewis
+    """ syntax match jacquie "\cjlewis"
+
+    """ syntax match jacquie "\ctimesheets\?"
+
+    """ hi joy cterm=NONE ctermfg=171 ctermbg=238
+    """ syntax match joy "\c<young\>"
+    """ syntax match joy "\c\<Joylene\>\([\- .]Young\)\?[\a]\@!" " Joylene Young
+    """ syntax match joy "\cjyoung"
+
+    """ hi jeanine cterm=NONE ctermfg=171 ctermbg=238
+    """ syntax match jeanine "\c\<fleming\>"
+    """ syntax match jeanine "\c\<Jeanine\>\([\- .]Fleming\)\?[\a]\@!" " Jeanine Fleming
+    """ syntax match jeanine "\cjfleming"
+
+    " hi lispfunction cterm=NONE ctermfg=240 ctermbg=234
+    " hi lispfunction cterm=NONE ctermfg=058 ctermbg=190
+    " syntax match lispfunction "\c(\@<=[a-z-]\+[ )]\@=" " toby and kashyap syntax are used for lisp
 
     hi kefin cterm=NONE ctermfg=216 ctermbg=098
     syntax match kefin "\c\<kefin[\a]\@!"
@@ -507,6 +902,162 @@ fun! GeneralSyntax()
     hi lexilambda cterm=NONE ctermfg=103 ctermbg=056
     syntax match lexilambda "\c\<lexi-lambda[\a]\@!"
 
+    hi mp3foley cterm=NONE ctermfg=077 ctermbg=026
+    syntax match mp3foley "\c\<mp3foley[\a]\@!"
+
+    hi arleen cterm=NONE ctermfg=002 ctermbg=022
+    syntax match arleen "\c\<Arleen\([\- .]Donaldson\)\?[\a]\@!" " Arleen Donaldson
+
+    """ hi abigail cterm=NONE ctermfg=171 ctermbg=7
+    """ syntax match abigail "\c\<Abigail\([\- .]Birkin-\?Hall\)\?[\a]\@!" " Abigail Birkin-Hall
+    """ "syntax match abigail "\claser\( feature extraction\)\?"
+    """ syntax match abigail "\c\<LASER\>"
+    """ syntax match abigail "\c\/\@<=\<LASER\>\/\@="
+    """ syntax match abigail "\claser feature extraction"
+    """ syntax match abigail "\c\<LFE\>"
+    """ syntax match abigail "\cabirkinh"
+
+    """ hi yuan cterm=NONE ctermfg=148 ctermbg=028
+    """ syntax match yuan "\c\<Yuan\>\([\- .]Mai\)\?[\a]\@!" " Yuan Mai
+    """ syntax match yuan "\cymai"
+
+    """ hi cooper cterm=NONE ctermfg=120 ctermbg=065
+    """ syntax match cooper "\c\<Cooper\>\([\- .]Li\)\?[\a]\@!" " Cooper Li
+    """ " we must allow _ so can't use \a
+    """ syntax match cooper "\<cli[a-zA-Z-]\@!"
+
+    """ hi gregsumner cterm=NONE ctermfg=069 ctermbg=055
+    """ syntax match gregsumner "\c\<sumner"
+    """ syntax match gregsumner "\c\<Greg\>\([\- .]Sumner\)\?[\a]\@!" " Greg Sumner
+    """ syntax match gregsumner "\c\<gsumner"
+
+    """ hi rachmcadam cterm=NONE ctermfg=209 ctermbg=124
+    """ syntax match rachmcadam "\c\<\(Rachel\|Rach\)\>\([\- .]McAdam\)\?[\a]\@!" " Rachel McAdam
+    """ syntax match rachmcadam "\crmcadam"
+
+    """ hi ryan cterm=NONE ctermfg=117 ctermbg=098
+    """ syntax match ryan "\c\<Ryan\>\([\- .]Estep\)\?[\a]\@!" " Ryan Estep
+    """ syntax match ryan "\crestep"
+
+    """ hi ralf cterm=NONE ctermfg=147 ctermbg=053
+    """ syntax match ralf "\c\<Ralf\>\([\- .]Haeusler\)\?[\a]\@!" " Ralf Haeusler
+    """ syntax match ralf "\crhaeusle"
+
+    """ hi tony cterm=NONE ctermfg=029 ctermbg=147
+    """ syntax match tony "\c\<Tony\>\([\- .]Fu\)\?[\a]\@!" " Tony Fu
+    """ syntax match tony "\c\<tfu\>"
+
+    """ hi justin cterm=NONE ctermfg=209 ctermbg=162
+    """ syntax match justin "\c\<Justin\>\([\- .]Thode\)\?[\a]\@!" " Justin Thode
+    """ syntax match justin "\cjthode"
+
+    """ hi jessdonnelly cterm=NONE ctermfg=159 ctermbg=248
+    """ syntax match jessdonnelly "\c\<Jess\>\([\- .]Donnelly\)\?[\a]\@!" " Jess Donnelly
+    """ syntax match jessdonnelly "\cjdonnell"
+
+    """ hi amanmehta cterm=NONE ctermfg=146 ctermbg=103
+    """ syntax match amanmehta "\c\<Aman\>\([\- .]Mehta\)\?[\a]\@!" " Aman Mehta
+    """ syntax match amanmehta "\camehta"
+
+    """ hi ruthmitchener cterm=NONE ctermfg=171 ctermbg=181
+    """ syntax match ruthmitchener "\c\<Ruth\>\([\- .]Mitchener\)\?[\a]\@!" " Ruth Mitchener
+    """ syntax match ruthmitchener "\crmitchen"
+
+    """ hi callum cterm=NONE ctermfg=020 ctermbg=251
+    """ syntax match callum "\c\<Callum\>\([\- .]Robinson\)\?[\a]\@!" " Callum Robinson
+    """ syntax match callum "\ccrobinso"
+
+    """ hi stuartpark cterm=NONE ctermfg=045 ctermbg=065
+    """ syntax match stuartpark "\c\<Stuart\>\([\- .]Park\)\?[\a]\@!" " Stuart Park
+    """ syntax match stuartpark "\cspark"
+
+    """ hi lisawong cterm=NONE ctermfg=105 ctermbg=044
+    """ syntax match lisawong "\c\<Lisa\>\([\- .]Wong\)\?[\a]\@!" " Lisa Wong
+    """ syntax match lisawong "\clwong"
+
+    """ hi nicholasgadd cterm=NONE ctermfg=012 ctermbg=228
+    """ "hi nicholasgadd cterm=NONE ctermfg=021 ctermbg=228
+    """ "hi nicholasgadd cterm=NONE ctermfg=228 ctermbg=012
+    """ syntax match nicholasgadd "\c\<gadd\>"
+    """ syntax match nicholasgadd "\c\<\(Nicholas\|Nick\)\>\([\- .]Gadd\)\?[\a]\@!" " Nicholas Gadd
+    """ syntax match nicholasgadd "\cngadd"
+
+    """ hi karanpurohit cterm=NONE ctermfg=250 ctermbg=094
+    """ syntax match karanpurohit "\c\<purohit\>"
+    """ syntax match karanpurohit "\c\<Karan\>\([\- .]Purohit\)\?[\a]\@!" " Karan Purohit
+    """ syntax match karanpurohit "\ckpurohit"
+
+    """ hi tianxu cterm=NONE ctermfg=158 ctermbg=096
+    """ syntax match tianxu "\c\<Tian\>\([\- .]Xu\)\?[\a]\@!" " Tian Xu
+    """ syntax match tianxu "\ctxu"
+    """ syntax match tianxu "\<Xu\>"
+
+    """ hi thomasgumpp cterm=NONE ctermfg=129 ctermbg=090
+    """ syntax match thomasgumpp "\c\<Thomas\>\([\- .]Gumpp\)\?[\a]\@!" " Thomas Gumpp
+    """ syntax match thomasgumpp "\ctgumpp\d\?"
+
+    """ hi sianphillips cterm=NONE ctermfg=042 ctermbg=023
+    """ syntax match sianphillips "\c\<phillips\>"
+    """ syntax match sianphillips "\c\<Sian\>\([\- .]Phillips\)\?[\a]\@!" " Sian Phillips
+    """ syntax match sianphillips "sphillip"
+    """ syntax match sianphillips "\c\<tof\>"
+
+    """ hi alanstewart cterm=NONE ctermfg=215 ctermbg=166
+    """ syntax match alanstewart "\c\<Alan\>\([\- .]Stewart\)\?[\a]\@!" " Alan Stewart
+    """ syntax match alanstewart "astewart"
+
+    """ "tracmap colours
+    """ hi johnzhang cterm=NONE ctermfg=190 ctermbg=034
+    """ syntax match johnzhang "\<Zhang\>"
+    """ syntax match johnzhang "\c\<John\>\([\- .]Zhang\)\?[\a]\@!" " John Zhang
+    """ syntax match johnzhang "zjohn"
+
+    """ "hi theo cterm=NONE ctermfg=190 ctermbg=034
+    """ "syntax match theo "\<Siew\>"
+    """ "syntax match theo "\c\<Kelly\>\([\- .]Siew\)\?[\a]\@!" " Kelly Siew
+    """ "syntax match theo "skelly"
+
+    """ hi kellysiew cterm=NONE ctermfg=190 ctermbg=034
+    """ syntax match kellysiew "\<Siew\>"
+    """ syntax match kellysiew "\c\<Kelly\>\([\- .]Siew\)\?[\a]\@!" " Kelly Siew
+    """ syntax match kellysiew "skelly"
+
+    """ hi melodyfarishta cterm=NONE ctermfg=190 ctermbg=034
+    """ syntax match melodyfarishta "\<Farishta\>"
+    """ syntax match melodyfarishta "\c\<Melody\>\([\- .]Farishta\)\?[\a]\@!" " Melody Farishta
+    """ syntax match melodyfarishta "fmelody"
+    """ 
+    """ hi theodrissnerdevine cterm=NONE ctermfg=190 ctermbg=034
+    """ syntax match theodrissnerdevine "\c\<Drissner.\?Devine\>"
+    """ syntax match theodrissnerdevine "\c\<Theo\(.\?\<Drissner.\?Devine\)\?\>" " Theo Drissner-Devine
+    """ syntax match theodrissnerdevine "dtheo"
+
+    """ hi kitbishop cterm=NONE ctermfg=190 ctermbg=034
+    """ syntax match kitbishop "\<Bishop\>"
+    """ syntax match kitbishop "\c\<Kit\>\([\- .]Bishop\)\?[\a]\@!" " Kit Bishop
+    """ syntax match kitbishop "bkit"
+
+    """ hi junli cterm=NONE ctermfg=222 ctermbg=162
+    """ syntax match junli "\c\<Junli\>\([\- .]Tao\)\?[\a]\@!" " Junli Tao
+    """ syntax match junli "\cjtao"
+
+    """ " Good color
+    """ "hi xuan cterm=NONE ctermfg=007 ctermbg=204
+    """ "she no longer likes pink
+    """ "hi xuan cterm=NONE ctermfg=250 ctermbg=007
+    """ "sho likes baby pink now
+    """ "" exactly what she likes
+    """ hi xuan cterm=NONE ctermfg=218 ctermbg=255
+    """ syntax match xuan "\c\<\(Xuan\|Yolanda\)\>\([\- .]Gao\)\?[\a]\@!" " Xuan Gao
+    """ syntax match xuan "\cygao"
+
+    """ " must come before
+    """ syntax match subdued "\<ssh\>"
+    """ hi saeid cterm=NONE ctermfg=204 ctermbg=7
+    """ syntax match saeid "\c\<Saeid\>\([\- .]Shahosseini\)\?[\a]\@!" " Saeid Shahosseini
+    """ syntax match saeid "\csshahoss"
+
+    
 " Zapp Brannigan
 " Kif Kroker
 " Smitty (Officer Smith, futurama)
@@ -514,6 +1065,19 @@ fun! GeneralSyntax()
 " Pickles (robot from futurama)
 " Snarl ?
 " Cardinal ?
+
+    """ " Trucks
+    """ hi trucks cterm=NONE ctermfg=141 ctermbg=018
+    """ "syntax match trucks "\c\(\<\|[-_]\)\(Snarl\|Zapp\|Crushinator\|Leela\|Kroker\|Kiwi\|Cardinal\|Smitty\|Pickles\|Nibbler\|Bender\)\(\>\|[-_]\)" " Named
+    """ syntax match trucks "\c\(\<\|[-_]\)\(Snarl\|Zapp\|Crushinator\|Leela\|Kroker\|Kiwi\|Cardinal\|Smitty\|Pickles\|Nibbler\|Bender\)\(\>\|[-]\)" " Named
+    """ " dont let it end with a _ (so _hil is also hilighted
+
+    """ hi servers cterm=NONE ctermfg=141 ctermbg=018
+    """ syntax match servers "\c\(nitrogen\)"
+
+    """ " need to barr quotes to prevent affecting pythonif "TSP" in truckModel:
+    """ " can't be bothered fixing it, it's ugly anyway and breaks everywhere
+    """ "syntax match trucks "\c[^']\(\<\|[-_]\)[^"']\(tsp\|t\|tc\|tr\)\d*\(\>\|[-_]\)" " Types
 
     hi textpath cterm=NONE ctermfg=113 ctermbg=234
     "hi textpath cterm=NONE ctermfg=None ctermbg=237
@@ -939,6 +1503,15 @@ fun! GeneralSyntax()
     syntax match tmuxsession "\(\<localhost\(_[A-Za-z0-9-]\+\)*\)\@<=:"
     syntax match tmuxsession "\<localhost\(\(_[A-Za-z0-9-]\+\)*:\)\@="
     syntax match tmuxsession "\<localhost\(\(_[A-Za-z0-9-]\+\)\+\)\@="
+    "localhost_ws_cpp
+
+    """ " this should come after numbers
+    """ syntax match crown '[CT]1515'
+    """ syntax match crown 'H5'
+
+    """ syntax match crown '\c\<gena\>'
+
+    """ syntax match crown '\c\<brett\( robison\)\?\>'
 
     hi ui cterm=NONE ctermfg=242 ctermbg=239
     syntax match ui "[^[]\@<!|\+"
@@ -1227,6 +1800,18 @@ fun! GeneralSyntax()
     syntax match machinelearning "\ck-means"
     syntax match machinelearning "\ccluster"
     syntax match machinelearning "\cgaussian"
+
+    syntax match machinelearning "\cnlp"
+
+    hi reality ctermfg=075 ctermbg=234
+    syntax match reality "\cgpt-[a-z0-9]"
+    syntax match reality "\clanguage models\?\>"
+    syntax match reality "\clms\?\>"
+    syntax match reality "\clanguage"
+    syntax match reality "\cmodels\?\>"
+    syntax match reality "\cimaginary"
+    syntax match reality "\creality"
+    syntax match reality "\ctruth"
 
     "hi math ctermfg=148 ctermbg=094
     hi math ctermfg=172 ctermbg=228
@@ -1623,6 +2208,14 @@ fun! GeneralSyntax()
 
     hi liesel cterm=NONE ctermfg=178 ctermbg=094
     syntax match liesel "\c\<lisel\>"
+    
+    " so $HOME/notes2018/chinese.vim
 endf
 
 command! GeneralSyntax silent! call GeneralSyntax()
+
+"autocmd Syntax * call GeneralSyntax()
+"autocmd VimEnter,BufWinEnter,BufEnter * call GeneralSyntax()
+"    hi googleyellow cterm=NONE ctermfg=178 ctermbg=235
+"autocmd VimEnter,BufWinEnter,BufEnter * call TextSyntax()
+
