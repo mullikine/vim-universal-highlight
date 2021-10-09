@@ -1805,7 +1805,6 @@ fun! GeneralSyntax()
 
     hi reality ctermfg=075 ctermbg=234
     syntax match reality "\cgpt-[a-z0-9]"
-    syntax match reality "\clanguage models\?\>"
     syntax match reality "\clms\?\>"
     syntax match reality "\clanguage"
     syntax match reality "\cmodels\?\>"
