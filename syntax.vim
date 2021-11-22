@@ -723,13 +723,15 @@ fun! GeneralSyntax()
     hi inka cterm=NONE ctermfg=044 ctermbg=099
     hi inka cterm=NONE ctermfg=227 ctermbg=099
     syntax match inka "\c\<Inka\>\([\- .]OLO\)\?[\a]\@!" " Inka OLO
-    syntax match inka "\(balance\|wonderland\)" " Inka OLO
-    syntax match inka "\(path\|existence\)" " Inka OLO
-    syntax match inka "\(light\|magical\)" " Inka OLO
-    syntax match inka "\(traveller\|lilac\|wave\)" " Inka OLO
+    syntax match inka "\c\<\(balance\|wonderland\)\>" " Inka OLO
+    syntax match inka "\c\<\(path\|existence\)\>" " Inka OLO
+    syntax match inka "\c\<\(light\|magical\)\>" " Inka OLO
+    syntax match inka "\c\<\(traveller\|lilac\|wave\)\>" " Inka OLO
+    syntax match inka "\c\<\(solipsism\)\>" " Inka OLO
     " spacedisco
-    syntax match inka "\(key\|disco\|gypsy\)" " Inka OLO
-    syntax match inka "\(fourteen\|14\)" " Inka OLO
+    syntax match inka "\c\<\(key\|disco\|gypsy\)\>" " Inka OLO
+    " Fav number
+    syntax match inka "\c\<\(fourteen\|14\)\>" " Inka OLO
     " Ola - means wave in Spanish
 
     hi me cterm=NONE ctermfg=204 ctermbg=027
@@ -2232,4 +2234,3 @@ command! GeneralSyntax silent! call GeneralSyntax()
 "autocmd VimEnter,BufWinEnter,BufEnter * call GeneralSyntax()
 "    hi googleyellow cterm=NONE ctermfg=178 ctermbg=235
 "autocmd VimEnter,BufWinEnter,BufEnter * call TextSyntax()
-
