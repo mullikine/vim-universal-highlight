@@ -723,15 +723,14 @@ fun! GeneralSyntax()
     hi inka cterm=NONE ctermfg=044 ctermbg=099
     hi inka cterm=NONE ctermfg=227 ctermbg=099
     syntax match inka "\c\<Inka\>\([\- .]OLO\)\?[\a]\@!" " Inka OLO
-    syntax match inka "balance" " Inka OLO
-    syntax match inka "wonderland" " Inka OLO
-    syntax match inka "path" " Inka OLO
-    syntax match inka "existence" " Inka OLO
-    syntax match inka "light" " Inka OLO
-    syntax match inka "magical" " Inka OLO
-    syntax match inka "traveller" " Inka OLO
-    syntax match inka "lilac" " Inka OLO
+    syntax match inka "\(balance\|wonderland\)" " Inka OLO
+    syntax match inka "\(path\|existence\)" " Inka OLO
+    syntax match inka "\(light\|magical\)" " Inka OLO
+    syntax match inka "\(traveller\|lilac\|wave\)" " Inka OLO
+    " spacedisco
+    syntax match inka "\(key\|disco\|gypsy\)" " Inka OLO
     syntax match inka "\(fourteen\|14\)" " Inka OLO
+    " Ola - means wave in Spanish
 
     hi me cterm=NONE ctermfg=204 ctermbg=027
     syntax match me "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
