@@ -718,6 +718,21 @@ fun! GeneralSyntax()
     "hi me cterm=NONE ctermfg=027 ctermbg=197
     "hi me cterm=NONE ctermfg=197 ctermbg=027
     "hi me cterm=NONE ctermfg=124 ctermbg=111
+
+    " hi inka cterm=NONE ctermfg=099 ctermbg=044
+    hi inka cterm=NONE ctermfg=044 ctermbg=099
+    hi inka cterm=NONE ctermfg=227 ctermbg=099
+    syntax match inka "\c\<Inka\>\([\- .]OLO\)\?[\a]\@!" " Inka OLO
+    syntax match inka "balance" " Inka OLO
+    syntax match inka "wonderland" " Inka OLO
+    syntax match inka "path" " Inka OLO
+    syntax match inka "existence" " Inka OLO
+    syntax match inka "light" " Inka OLO
+    syntax match inka "magical" " Inka OLO
+    syntax match inka "traveller" " Inka OLO
+    syntax match inka "lilac" " Inka OLO
+    syntax match inka "\(fourteen\|14\)" " Inka OLO
+
     hi me cterm=NONE ctermfg=204 ctermbg=027
     syntax match me "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
     syntax match me "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
@@ -1811,6 +1826,7 @@ fun! GeneralSyntax()
     syntax match reality "\cimaginary"
     syntax match reality "\creality"
     syntax match reality "\ctruth"
+    syntax match reality "\cfact"
 
     "hi math ctermfg=148 ctermbg=094
     hi math ctermfg=172 ctermbg=228
