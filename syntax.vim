@@ -711,13 +711,13 @@ fun! GeneralSyntax()
     """ syntax match kashyap "\c\<Kashyap\>\([\- .]Chandrasekar\)\?[\a]\@!" " Kashyap Chandrasekar
     """ syntax match kashyap "\ckchandra"
 
-    "hi me cterm=NONE ctermfg=076 ctermbg=017
-    "hi me cterm=NONE ctermfg=155 ctermbg=236
-    "hi me cterm=NONE ctermfg=009 ctermbg=019
-    "hi me cterm=NONE ctermfg=196 ctermbg=019
-    "hi me cterm=NONE ctermfg=027 ctermbg=197
-    "hi me cterm=NONE ctermfg=197 ctermbg=027
-    "hi me cterm=NONE ctermfg=124 ctermbg=111
+    "hi redpill cterm=NONE ctermfg=076 ctermbg=017
+    "hi redpill cterm=NONE ctermfg=155 ctermbg=236
+    "hi redpill cterm=NONE ctermfg=009 ctermbg=019
+    "hi redpill cterm=NONE ctermfg=196 ctermbg=019
+    "hi redpill cterm=NONE ctermfg=027 ctermbg=197
+    "hi redpill cterm=NONE ctermfg=197 ctermbg=027
+    "hi redpill cterm=NONE ctermfg=124 ctermbg=111
 
     " hi inka cterm=NONE ctermfg=099 ctermbg=044
     hi inka cterm=NONE ctermfg=044 ctermbg=099
@@ -727,27 +727,28 @@ fun! GeneralSyntax()
     syntax match inka "\c\<\(path\|existence\)\>" " Inka OLO
     syntax match inka "\c\<\(light\|magical\)\>" " Inka OLO
     syntax match inka "\c\<\(traveller\|lilac\|wave\)\>" " Inka OLO
-    syntax match inka "\c\<\(solipsism\)\>" " Inka OLO
+    syntax match inka "\c\<\(solipsism\|ink\)\>" " Inka OLO
     " spacedisco
     syntax match inka "\c\<\(key\|disco\|gypsy\)\>" " Inka OLO
     " Fav number
     syntax match inka "\c\<\(fourteen\|14\)\>" " Inka OLO
     " Ola - means wave in Spanish
 
-    hi me cterm=NONE ctermfg=204 ctermbg=027
-    syntax match me "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
-    syntax match me "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
-    syntax match me "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
-    syntax match me "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
-    syntax match me "\c\<Kiana\>\([\- .]Adams\)\?[\a]\@!" " Kiana Adams
-    syntax match me "\csmulliga"
-    syntax match me "\c\<JOB\>"
-    syntax match me "\clibertyprime"
+    " My redpills
+    hi redpill cterm=NONE ctermfg=204 ctermbg=027
+    syntax match redpill "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
+    syntax match redpill "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
+    syntax match redpill "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
+    syntax match redpill "\csmulliga"
+    syntax match redpill "\c\<JOB\>"
+    syntax match redpill "\clibertyprime"
+
+    hi bluepill cterm=NONE ctermfg=027 ctermbg=204
+    syntax match bluepill "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
+    syntax match bluepill "\c\<Kiana\>\([\- .]Adams\)\?[\a]\@!" " Kiana Adams
+    syntax match bluepill "\clibertyprimebot"
 
     syntax match crown "\calphapapa"
-
-    hi mebot cterm=NONE ctermfg=027 ctermbg=204
-    syntax match mebot "\clibertyprimebot"
 
     """ " unknown crown developers/people
     """ syntax match crown '\c\<Alex Kozlov\>'
