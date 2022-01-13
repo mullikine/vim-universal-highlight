@@ -1258,6 +1258,13 @@ fun! GeneralSyntax()
     syntax match criticalpriority "Device or resource busy"
     syntax match criticalpriority "\<MUST\>"
 
+    hi security cterm=NONE ctermfg=228 ctermbg=149
+    syntax match security "\c\<priv[a-z]\+"
+    syntax match security "\c\<crypt[a-z]\+\>"
+    syntax match security "\c\<enc[a-z]\+\>"
+    syntax match security "\c\<sec[a-z]\+\>"
+    syntax match security "\c\<passw[a-z]\+\>"
+
     hi superimportant cterm=NONE ctermfg=226 ctermbg=208
     syntax match superimportant "\c\<super\(-duper\)\? important\>"
     syntax match superimportant "\c\<ultra important\>"
@@ -1748,8 +1755,8 @@ fun! GeneralSyntax()
     syntax match codekeywords "\<With\>"
     syntax match codekeywords "\<To\>"
     syntax match codekeywords "\<Next\>"
-    syntax match codekeywords "\c\<Private\>"
-    syntax match codekeywords "\c\<Public\>"
+    " syntax match codekeywords "\c\<Private\>"
+    " syntax match codekeywords "\c\<Public\>"
 
     syntax match codekeywords "\<\(struct\|type\)\>"
     syntax match codekeywords "\<typedef\>"
