@@ -743,9 +743,9 @@ fun! GeneralSyntax()
     syntax match redpill "\c\<JOB\>"
     syntax match redpill "\clibertyprime"
 
+    " My bluepills
     hi bluepill cterm=NONE ctermfg=027 ctermbg=204
     syntax match bluepill "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
-    syntax match bluepill "\c\<Kiana\>\([\- .]Adams\)\?[\a]\@!" " Kiana Adams
     syntax match bluepill "\clibertyprimebot"
 
     syntax match crown "\calphapapa"
