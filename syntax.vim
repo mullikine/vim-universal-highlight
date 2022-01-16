@@ -743,6 +743,9 @@ fun! GeneralSyntax()
     syntax match redpill "\c\<JOB\>"
     syntax match redpill "\clibertyprime"
 
+    hi care cterm=NONE ctermfg=204 ctermbg=027
+    syntax match care "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
+
     " My bluepills
     hi bluepill cterm=NONE ctermfg=027 ctermbg=204
     syntax match bluepill "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
