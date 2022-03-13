@@ -75,7 +75,9 @@ fun! NumberSyntax()
     syntax match one "\c(\?\<[a])"
     syntax match one "\c\<jan\>"
 
-    hi two cterm=NONE ctermfg=040 ctermbg=236
+    " hi two cterm=NONE ctermfg=040 ctermbg=236
+    " hi two cterm=NONE ctermfg=129 ctermbg=236
+    hi two cterm=NONE ctermfg=127 ctermbg=236
     "syntax match two "\(\a\d*\)\@<!\(\d*2\)\d\@!\a*\s\?"
     syntax match two "\c[a-f]*\(\d*2\)\d\@![a-z]*"
     syntax match two "\c[a-z]*\(\d*2\)\d\@![a-z]*\(_t\)\@="
@@ -89,7 +91,9 @@ fun! NumberSyntax()
     syntax match two "\c(\?\<[b])"
     syntax match two "\c\<feb\>"
 
-    hi three cterm=NONE ctermfg=091 ctermbg=236
+    " hi three cterm=NONE ctermfg=091 ctermbg=236
+    " hi three cterm=NONE ctermfg=129 ctermbg=236
+    hi three cterm=NONE ctermfg=040 ctermbg=236
     "syntax match three "\s\?\(\a\d*\)\@<!\(\d*3\)\d\@!\a*\s\?"
     syntax match three "\c[a-f]*\(\d*3\)\d\@![a-z]*"
     "syntax match three "\c\([g-wyz][a-f]\?\)\@<![a-f]*\(\d*3\)\d\@!\a*"
@@ -101,7 +105,8 @@ fun! NumberSyntax()
     syntax match three "\c(\?\<[c])"
     syntax match three "\c\<mar\>"
 
-    hi four cterm=NONE ctermfg=178 ctermbg=236
+    " hi four cterm=NONE ctermfg=178 ctermbg=236
+    hi four cterm=NONE ctermfg=214 ctermbg=236
     "syntax match four "\s\?\(\a\d*\)\@<!\(\d*4\)\d\@!\a*\s\?"
     syntax match four "\c[a-f]*\(\d*4\)\d\@![a-z]*"
     syntax match four "\c[a-z]*\(\d*4\)\d\@![a-z]*\(_t\)\@="
@@ -142,7 +147,8 @@ fun! NumberSyntax()
     syntax match seven "\c(\?\<[g])"
     syntax match seven "\c\<jul\>"
 
-    hi eight cterm=NONE ctermfg=204 ctermbg=236
+    " hi eight cterm=NONE ctermfg=204 ctermbg=236
+    hi eight cterm=NONE ctermfg=168 ctermbg=236
     "syntax match eight "\s\?\(\a\d*\)\@<!\(\d*8\)\d\@!\a*\s\?"
     syntax match eight "\c[a-f]*\(\d*8\)\d\@![a-z]*"
     syntax match eight "\c[a-z]*\(\d*8\)\d\@![a-z]*\(_t\)\@="
@@ -162,7 +168,8 @@ fun! NumberSyntax()
     syntax match nine "\c\<sep\>"
 
     "hi zero cterm=NONE ctermfg=141 ctermbg=236
-    hi zero cterm=NONE ctermfg=127 ctermbg=236
+    " hi zero cterm=NONE ctermfg=127 ctermbg=236
+    hi zero cterm=NONE ctermfg=095 ctermbg=236
     " hi zero cterm=NONE ctermfg=067 ctermbg=236
     "syntax match zero "\s\?\(\a\d*\)\@<!\(\d*0\)\d\@!\a*\s\?"
     syntax match zero "\c[a-f]*\(\d*0\)\d\@![a-z]*"
