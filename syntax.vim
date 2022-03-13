@@ -2104,6 +2104,19 @@ fun! GeneralSyntax()
     hi yellow ctermfg=226 ctermbg=142
     syntax match yellow "\<yellow\>"
 
+    hi purple cterm=NONE ctermfg=165 ctermbg=093
+    syntax match purple "\<purple\>"
+
+    hi orange cterm=NONE ctermfg=216 ctermbg=166
+    syntax match orange "\<orange\>"
+
+    " teal is the dark cyan
+    hi teal cterm=NONE ctermfg=030 ctermbg=024
+    syntax match teal "\<teal\>"
+
+    hi cyan cterm=NONE ctermfg=123 ctermbg=045
+    syntax match cyan "\<cyan\>"
+
     " Enhancement
     " $MYGIT/cytopia/ffscreencast.git/CHANGELOG.md
     syntax match blue "\<Enh\>"
