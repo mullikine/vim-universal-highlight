@@ -748,7 +748,6 @@ fun! GeneralSyntax()
 
     " My bluepills
     hi bluepill cterm=NONE ctermfg=027 ctermbg=204
-    syntax match bluepill "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
     syntax match bluepill "\clibertyprimebot"
 
     syntax match crown "\calphapapa"
@@ -2079,8 +2078,17 @@ fun! GeneralSyntax()
 
     "syntax match glue2 "trace"
 
-    hi blue ctermfg=063 ctermbg=019
+    hi red ctermfg=160 ctermbg=088
+    syntax match red "\<red\>"
+
+    hi blue ctermfg=075 ctermbg=027
     syntax match blue "\<blue\>"
+
+    hi green ctermfg=082 ctermbg=034
+    syntax match green "\<green\>"
+
+    hi yellow ctermfg=226 ctermbg=142
+    syntax match yellow "\<yellow\>"
 
     " Enhancement
     " $MYGIT/cytopia/ffscreencast.git/CHANGELOG.md
