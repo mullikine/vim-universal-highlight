@@ -58,7 +58,10 @@ fun! NumberSyntax()
     " keep letters before numbers (it's also extremely useful for, for
     " example dates like this 20160818054330UTC. better on than off for
     " sure)
-    hi one cterm=NONE ctermfg=039 ctermbg=236
+    " hi one cterm=NONE ctermfg=039 ctermbg=236
+    " It must be darker to contrast with 7
+    " hi one cterm=NONE ctermfg=027 ctermbg=236
+    hi one cterm=NONE ctermfg=033 ctermbg=236
     "syntax match one "\s\?\(\a\d*\)\@<!\(\d*1\)\d\@!\a*\s\?"
     syntax match one "\c[a-f]*\(\d*1\)\d\@!\a*"
     " fails on this .ansi31, so not worth the expense
