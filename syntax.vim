@@ -58,7 +58,7 @@ fun! NumberSyntax()
     " keep letters before numbers (it's also extremely useful for, for
     " example dates like this 20160818054330UTC. better on than off for
     " sure)
-    hi one cterm=NONE ctermfg=033 ctermbg=236
+    hi one cterm=NONE ctermfg=039 ctermbg=236
     "syntax match one "\s\?\(\a\d*\)\@<!\(\d*1\)\d\@!\a*\s\?"
     syntax match one "\c[a-f]*\(\d*1\)\d\@!\a*"
     " fails on this .ansi31, so not worth the expense
@@ -75,7 +75,7 @@ fun! NumberSyntax()
     syntax match one "\c(\?\<[a])"
     syntax match one "\c\<jan\>"
 
-    hi two cterm=NONE ctermfg=149 ctermbg=236
+    hi two cterm=NONE ctermfg=040 ctermbg=236
     "syntax match two "\(\a\d*\)\@<!\(\d*2\)\d\@!\a*\s\?"
     syntax match two "\c[a-f]*\(\d*2\)\d\@![a-z]*"
     syntax match two "\c[a-z]*\(\d*2\)\d\@![a-z]*\(_t\)\@="
@@ -89,7 +89,7 @@ fun! NumberSyntax()
     syntax match two "\c(\?\<[b])"
     syntax match two "\c\<feb\>"
 
-    hi three cterm=NONE ctermfg=206 ctermbg=236
+    hi three cterm=NONE ctermfg=091 ctermbg=236
     "syntax match three "\s\?\(\a\d*\)\@<!\(\d*3\)\d\@!\a*\s\?"
     syntax match three "\c[a-f]*\(\d*3\)\d\@![a-z]*"
     "syntax match three "\c\([g-wyz][a-f]\?\)\@<![a-f]*\(\d*3\)\d\@!\a*"
@@ -101,7 +101,7 @@ fun! NumberSyntax()
     syntax match three "\c(\?\<[c])"
     syntax match three "\c\<mar\>"
 
-    hi four cterm=NONE ctermfg=227 ctermbg=236
+    hi four cterm=NONE ctermfg=178 ctermbg=236
     "syntax match four "\s\?\(\a\d*\)\@<!\(\d*4\)\d\@!\a*\s\?"
     syntax match four "\c[a-f]*\(\d*4\)\d\@![a-z]*"
     syntax match four "\c[a-z]*\(\d*4\)\d\@![a-z]*\(_t\)\@="
@@ -113,7 +113,7 @@ fun! NumberSyntax()
     syntax match four "\c(\?\<%\@<![d])"
     syntax match four "\c\<apr\>"
 
-    hi five cterm=NONE ctermfg=161 ctermbg=236
+    hi five cterm=NONE ctermfg=160 ctermbg=236
     "syntax match five "\s\?\(\a\d*\)\@<!\(\d*5\)\d\@!\a*\s\?"
     syntax match five "\c\(h[a-f]*\)\@<![a-f]*h\@<!\(\d*5\)\d\@![a-z]*"
     "syntax match five "\c\(h[a-f]*\)\@<!\([g-wyz][a-f]\?\)\@<![a-f]*\(\d*5\)\d\@!\a*"
