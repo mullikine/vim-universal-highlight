@@ -109,7 +109,8 @@ fun! NumberSyntax()
     syntax match three "\c\<mar\>"
 
     " hi four cterm=NONE ctermfg=178 ctermbg=236
-    hi four cterm=NONE ctermfg=214 ctermbg=236
+    " hi four cterm=NONE ctermfg=214 ctermbg=236
+    hi four cterm=NONE ctermfg=226 ctermbg=236
     "syntax match four "\s\?\(\a\d*\)\@<!\(\d*4\)\d\@!\a*\s\?"
     syntax match four "\c[a-f]*\(\d*4\)\d\@![a-z]*"
     syntax match four "\c[a-z]*\(\d*4\)\d\@![a-z]*\(_t\)\@="
@@ -121,7 +122,8 @@ fun! NumberSyntax()
     syntax match four "\c(\?\<%\@<![d])"
     syntax match four "\c\<apr\>"
 
-    hi five cterm=NONE ctermfg=160 ctermbg=236
+    " hi five cterm=NONE ctermfg=160 ctermbg=236
+    hi five cterm=NONE ctermfg=124 ctermbg=236
     "syntax match five "\s\?\(\a\d*\)\@<!\(\d*5\)\d\@!\a*\s\?"
     syntax match five "\c\(h[a-f]*\)\@<![a-f]*h\@<!\(\d*5\)\d\@![a-z]*"
     "syntax match five "\c\(h[a-f]*\)\@<!\([g-wyz][a-f]\?\)\@<![a-f]*\(\d*5\)\d\@!\a*"
@@ -131,7 +133,7 @@ fun! NumberSyntax()
     " syntax match five "\<[XIVMC]*V\>"
     syntax match five "\c\<may\>"
 
-    hi six cterm=NONE ctermfg=214 ctermbg=236
+    hi six cterm=NONE ctermfg=166 ctermbg=236
     "syntax match six "\s\?\(\a\d*\)\@<!\(\d*6\)\d\@!\a*\s\?"
     syntax match six "\c[a-f]*\(\d*6\)\d\@![a-z]*"
     syntax match six "\c[a-z]*\(\d*6\)\d\@![a-z]*\(_t\)\@="
