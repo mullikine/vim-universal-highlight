@@ -176,11 +176,13 @@ fun! NumberSyntax()
     "hi zero cterm=NONE ctermfg=141 ctermbg=236
     " hi zero cterm=NONE ctermfg=127 ctermbg=236
     hi zero cterm=NONE ctermfg=095 ctermbg=236
+    " hi zero cterm=NONE ctermfg=000 ctermbg=236
     " hi zero cterm=NONE ctermfg=067 ctermbg=236
     "syntax match zero "\s\?\(\a\d*\)\@<!\(\d*0\)\d\@!\a*\s\?"
     syntax match zero "\c[a-f]*\(\d*0\)\d\@![a-z]*"
     "syntax match zero "\c\([g-wyz][a-f]\?\)\@<![a-f]*\(\d*0\)\d\@!\a*"
     syntax match zero "zero"
+    syntax match zero "ten"
     " syntax match zero "\<[XIVMC]*X\>"
     syntax match zero "\c\<oct\>"
 
