@@ -153,7 +153,8 @@ fun! NumberSyntax()
     syntax match seven "\c\<jul\>"
 
     " hi eight cterm=NONE ctermfg=204 ctermbg=236
-    hi eight cterm=NONE ctermfg=168 ctermbg=236
+    " hi eight cterm=NONE ctermfg=168 ctermbg=236
+    hi eight cterm=NONE ctermfg=207 ctermbg=236
     "syntax match eight "\s\?\(\a\d*\)\@<!\(\d*8\)\d\@!\a*\s\?"
     syntax match eight "\c[a-f]*\(\d*8\)\d\@![a-z]*"
     syntax match eight "\c[a-z]*\(\d*8\)\d\@![a-z]*\(_t\)\@="
