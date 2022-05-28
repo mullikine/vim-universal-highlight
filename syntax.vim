@@ -2034,9 +2034,13 @@ fun! GeneralSyntax()
     syntax match five '\<bg'
     syntax match five '\cbackground'
 
-    syntax match one '\c\(_\|\<\)\@<=x\(_\|\>\)\@='
-    syntax match two '\c\(_\|\<\)\@<=y\(_\|\>\)\@='
-    syntax match three '\c\(_\|\<\)\@<=z\(_\|\>\)\@='
+    syntax match one '\c\(_\|\<\)\@<=[x]\(_\|\>\)\@='
+    syntax match two '\c\(_\|\<\)\@<=[y]\(_\|\>\)\@='
+    syntax match three '\c\(_\|\<\)\@<=[z]\(_\|\>\)\@='
+
+    syntax match one '\(_\|\<\)\@<=[i]\(_\|\>\)\@='
+    syntax match two '\(_\|\<\)\@<=[j]\(_\|\>\)\@='
+    syntax match three '\(_\|\<\)\@<=[k]\(_\|\>\)\@='
 
     syntax match onlyhex '\([^A-Za-z0-9]\)\@<=%[a-zA-Z][a-zA-Z]\@!'
     syntax match zero '\([^A-Za-z0-9]\|\>\)\@<=%[a-z]\>'
@@ -2098,26 +2102,26 @@ fun! GeneralSyntax()
     syntax match red "\<red\>"
 
     hi blue ctermfg=075 ctermbg=027
-    syntax match blue "\<blue\>"
+    syntax match blue "\c\<blue\>"
 
     hi green ctermfg=082 ctermbg=034
-    syntax match green "\<green\>"
+    syntax match green "\c\<green\>"
 
     hi yellow ctermfg=226 ctermbg=142
-    syntax match yellow "\<yellow\>"
+    syntax match yellow "\c\<yellow\>"
 
     hi purple cterm=NONE ctermfg=165 ctermbg=093
-    syntax match purple "\<purple\>"
+    syntax match purple "\c\<purple\>"
 
     hi orange cterm=NONE ctermfg=216 ctermbg=166
-    syntax match orange "\<orange\>"
+    syntax match orange "\c\<orange\>"
 
     " teal is the dark cyan
     hi teal cterm=NONE ctermfg=030 ctermbg=024
-    syntax match teal "\<teal\>"
+    syntax match teal "\c\<teal\>"
 
     hi cyan cterm=NONE ctermfg=123 ctermbg=045
-    syntax match cyan "\<cyan\>"
+    syntax match cyan "\c\<cyan\>"
 
     " Enhancement
     " $MYGIT/cytopia/ffscreencast.git/CHANGELOG.md
