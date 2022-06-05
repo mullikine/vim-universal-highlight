@@ -756,13 +756,13 @@ fun! GeneralSyntax()
     " hi seleniumError cterm=NONE ctermfg=125 ctermbg=052
     syntax match redpill "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
     syntax match redpill "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
-    syntax match redpill "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
     syntax match redpill "\csmulliga"
     syntax match redpill "\c\<JOB\>"
     syntax match redpill "\clibertyprime"
 
-    hi redpill cterm=NONE ctermfg=039 ctermbg=026
-    syntax match redpill "\cfaithful"
+    hi faithful cterm=NONE ctermfg=039 ctermbg=026
+    syntax match faithful "\cfaithful"
+    syntax match faithful "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
 
     " This is darker
     hi consider cterm=NONE ctermfg=199 ctermbg=026
