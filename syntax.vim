@@ -751,7 +751,9 @@ fun! GeneralSyntax()
     " Ola - means wave in Spanish
 
     " My redpills
-    hi redpill cterm=NONE ctermfg=204 ctermbg=027
+    hi redpill cterm=NONE ctermfg=199 ctermbg=026
+    " hi consider cterm=NONE ctermfg=199 ctermbg=026
+    " hi seleniumError cterm=NONE ctermfg=125 ctermbg=052
     syntax match redpill "\c\<Shane\>\([\- .]Mulligan\)\?[\a]\@!" " Shane Mulligan
     syntax match redpill "\c\<Laria\>\([\- .]Reynolds\)\?[\a]\@!" " Laria Reynolds
     syntax match redpill "\c\<Melee\>\([\- .]Dowle\)\?[\a]\@!" " Melee Dowle
@@ -759,6 +761,10 @@ fun! GeneralSyntax()
     syntax match redpill "\c\<JOB\>"
     syntax match redpill "\clibertyprime"
 
+    hi redpill cterm=NONE ctermfg=039 ctermbg=026
+    syntax match redpill "\cfaithful"
+
+    " This is darker
     hi consider cterm=NONE ctermfg=199 ctermbg=026
     syntax match consider "\cthink about"
     syntax match consider "\cconsider\>"
