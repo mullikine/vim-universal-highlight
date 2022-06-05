@@ -759,6 +759,10 @@ fun! GeneralSyntax()
     syntax match redpill "\c\<JOB\>"
     syntax match redpill "\clibertyprime"
 
+    hi consider cterm=NONE ctermfg=199 ctermbg=026
+    syntax match consider "\cthink about"
+    syntax match consider "\cconsider\>"
+
     hi care cterm=NONE ctermfg=204 ctermbg=027
     syntax match care "\c\<Megan\>\([\- .]Goodwin\)\?[\a]\@!" " Megan Goodwin
 
@@ -1323,10 +1327,6 @@ fun! GeneralSyntax()
     syntax match highpriority "\c\(actually,\)"
     syntax match highpriority "\c\(be \)\?careful\a*"
     syntax match highpriority "\cdon'\?t forget"
-
-    hi consider cterm=NONE ctermfg=199 ctermbg=026
-    syntax match consider "\cthink about"
-    syntax match consider "\cconsider\>"
 
     hi warning cterm=NONE ctermfg=214 ctermbg=094
     syntax match warning "\(DO NOT\>\)\( [A-Z]\+\)"
