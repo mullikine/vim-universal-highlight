@@ -1860,7 +1860,7 @@ fun! GeneralSyntax()
     syntax match reality "\creality"
     syntax match reality "\ctruth"
     syntax match reality "\cfact"
-    syntax match reality "\csurreal"
+    syntax match reality "\c\<[a-z]*surreal[a-z]*\>"
 
     "hi math ctermfg=148 ctermbg=094
     hi math ctermfg=172 ctermbg=228
